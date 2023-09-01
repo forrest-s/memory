@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Memory Game</title>
+</head>
+<body>
+    <h1>Memory Game</h1>
+    <div class="player-selection">
+        <!-- <p>Current Player:<span id="current-player-label"></span></p>
+        <label for="num-players">Select the number of players:</label>
+        <select id="num-players">
+            <option value="1">1 Player</option>
+            <option value="2">2 Players</option>
+            <option value="3">3 Players</option>
+            <option value="4">4 Players</option>
+        </select> -->
+        <!-- <button onclick="startNewGame()">Start Game</button> -->
+        <button id="start-button">Start Game</button>
+    </div>
+    <div class="game-container" id="game-container">
+        <!-- Cards are created dynamically using JavaScript -->
+    </div>
+    <p>Moves: <span id="move-counter">0</span></p>
+    <div id="win-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Congratulations!</h2>
+            <p>You won with {{ matches }} matches.</p>
+            <p>It took you {{ turns }} turns.</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
