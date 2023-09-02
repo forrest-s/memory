@@ -4,6 +4,12 @@ body {
     background-color: #f4f4f4;
 }
 
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 h1 {
     color: #333;
 }
@@ -15,7 +21,7 @@ h1 {
     gap: 0.25rem;
     margin: 0 auto;
     padding: 1rem;
-    background-color: rgb(199 169 255 / 94%);
+    background-color: rgb(0 0 0 / 23%);
     border: 2px solid #333;
     border-radius: 5px;
 }
@@ -51,9 +57,24 @@ h1 {
 }
 
 .card.matched {
-    border: 0.125rem solid green;
     color: white;
     pointer-events: none; /* Prevent clicking matched cards */
+}
+
+.card.matched#PlayerOne {
+    border: 0.125rem solid green;
+}
+
+.card.matched#PlayerTwo {
+    border: 0.125rem solid blue;
+}
+
+.card.matched#PlayerThree {
+    border: 0.125rem solid red;
+}
+
+.card.matched#PlayerFour {
+    border: 0.125rem solid purple;
 }
 
 button {
@@ -65,4 +86,34 @@ button {
     border: none;
     cursor: pointer;
     border-radius: 1rem;
+}
+
+button#reset-game {
+    opacity: 50;
+    background-color: white;
+    border: 0.125rem solid red;
+    color: red;
+}
+
+#scoreboard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.125rem;
+
+    > div:nth-child(1) span {
+        border: 0.125rem solid green;
+    }
+
+    > div:nth-child(2) span {
+        border: 0.125rem solid blue;
+    }
+
+    > div:nth-child(3) span {
+        border: 0.125rem solid red;
+    }
+
+    > div:nth-child(4) span {
+        border: 0.125rem solid purple;
+    }
 }
