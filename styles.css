@@ -12,44 +12,57 @@ h1 {
     display: grid;
     justify-content: space-evenly;
     grid-template-columns: repeat(9, 100px);
-    gap: 10px;
+    gap: 0.25rem;
     margin: 0 auto;
-    padding: 20px;
-    background-color: white;
+    padding: 1rem;
+    background-color: rgb(199 169 255 / 94%);
     border: 2px solid #333;
     border-radius: 5px;
 }
 
 .card {
-    width: 100px;
-    height: 100px;
+    width: 63px;
+    height: 88px;
     background-color: #ddd;
-    font-size: 16px;
+    font-size: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    /* background: rgb(131,58,180); */
-    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+    border: 0.125rem solid white;
+    border-radius: 15%;
+    --s: 32px; /* control the size */
+    --c1: #F8B195;
+    --c2: #355C7D;
+    --_g: 
+       var(--c2) 6%  14%,var(--c1) 16% 24%,var(--c2) 26% 34%,var(--c1) 36% 44%,
+       var(--c2) 46% 54%,var(--c1) 56% 64%,var(--c2) 66% 74%,var(--c1) 76% 84%,var(--c2) 86% 94%;
+    background:
+      radial-gradient(100% 100% at 100% 0,var(--c1) 4%,var(--_g),#0008 96%,#0000),
+      radial-gradient(100% 100% at 0 100%,#0000, #0008 4%,var(--_g),var(--c1) 96%)
+      var(--c1);
+    background-size: var(--s) var(--s);
 }
 
 .card.flipped {
-    background-color: #333;
+    background: #333;
     color: white;
+    border: 0.125rem solid white;
 }
 
 .card.matched {
-    border: 0.25rem solid green;
+    border: 0.125rem solid green;
     color: white;
     pointer-events: none; /* Prevent clicking matched cards */
 }
 
 button {
-    font-size: 18px;
-    margin-top: 20px;
+    font-size: 22px;
+    margin: 1rem;
     padding: 10px 20px;
     background-color: #333;
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 1rem;
 }

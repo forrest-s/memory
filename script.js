@@ -5,12 +5,12 @@ const deck = [
     'Ace ♠', '2 ♠', '3 ♠', '4 ♠', '5 ♠',
     '6 ♠', '7 ♠', '8 ♠', '9 ♠', '10 ♠',
     'Jack ♠', 'Queen ♠', 'King ♠',
-    // 'Ace ♢', '2 ♢', '3 ♢', '4 ♢', '5 ♢',
-    // '6 ♢', '7 ♢', '8 ♢', '9 ♢', '10 ♢',
-    // 'Jack ♢', 'Queen ♢', 'King ♢',
-    // 'Ace ♣ ', '2 ♣ ', '3 ♣ ', '4 ♣ ', '5 ♣ ',
-    // '6 ♣ ', '7 ♣ ', '8 ♣ ', '9 ♣ ', '10 ♣ ',
-    // 'Jack ♣ ', 'Queen ♣ ', 'King ♣ ', 'Joker', 'Joker'
+    'Ace ♢', '2 ♢', '3 ♢', '4 ♢', '5 ♢',
+    '6 ♢', '7 ♢', '8 ♢', '9 ♢', '10 ♢',
+    'Jack ♢', 'Queen ♢', 'King ♢',
+    'Ace ♣ ', '2 ♣ ', '3 ♣ ', '4 ♣ ', '5 ♣ ',
+    '6 ♣ ', '7 ♣ ', '8 ♣ ', '9 ♣ ', '10 ♣ ',
+    'Jack ♣ ', 'Queen ♣ ', 'King ♣ ', 'Joker', 'Joker'
 ];
 const symbols = [...deck]; 
 let cards = [];
@@ -21,6 +21,15 @@ let checking = false; // Flag to indicate if the cards are being checked
 const gameContainer = document.getElementById('game-container');
 const startButton = document.getElementById('start-button');
 const moveCounter = document.getElementById('move-counter');
+const winDialog = document.getElementById('win-dialog');
+const matchesCount = document.getElementById('matches-count');
+const turnsCount = document.getElementById('turns-count');
+
+// Start the game when the "Start Game" button is clicked
+startButton.addEventListener('click', () => {
+    createCards();
+    startButton.disabled = true;
+});
 
 // Shuffle the symbols array
 function shuffleArray(array) {
@@ -89,45 +98,36 @@ function checkMatch() {
     flippedCards = [];
     checking = false; // reset flag
 
-    if (document.querySelectorAll('.matched').length === symbols.length) {
-        // setTimeout(() => alert('Congratulations! You won the game!'), 500);
-        openModal(moveCounter.textContent, moveCount)
-    }
+    if (document.querySelectorAll('.matched').length === symbols.length) openDialog(cards.length / 2, moveCount)
 }
 
-// Start the game when the "Start Game" button is clicked
-startButton.addEventListener('click', () => {
-    createCards();
-    startButton.disabled = true;
-});
-
-
-function openModal(matches, turns) {
-    const modal = document.getElementById('win-modal');
-    modal.style.display = 'block';
-
-    // Display the number of matches and turns in the modal
-    modal.querySelector('p:nth-of-type(1)').textContent = `You won with ${matches} matches.`;
-    modal.querySelector('p:nth-of-type(2)').textContent = `It took you ${turns} turns.`;
+// Function to open the modal when the game is won
+function openDialog(matches, turns) {
+    matchesCount.textContent = matches;
+    turnsCount.textContent = turns;
+    winDialog.showModal();
 }
 
 // Function to close the modal
-function closeModal() {
-    const modal = document.getElementById('win-modal');
-    modal.style.display = 'none';
-
-    // Reset the game board and make the "Start Game" button active again
+function closeDialog() {
+    winDialog.close();
     resetGame();
 }
 
 // Function to reset the game board
 function resetGame() {
     // Implement game reset logic here
-
-    // Example: Clear the board and set up a new game
-    // ...
-
+    moveCount = 0
+    moveCounter.textContent = moveCount
+    cards = []
+    while (gameContainer.firstChild) {
+        gameContainer.removeChild(gameContainer.firstChild)
+    }
     // Make the "Start Game" button active again
     const startButton = document.getElementById('start-button');
     startButton.disabled = false;
 }
+
+// Attach an event listener to the close button
+const closeButton = document.getElementById('close-dialog-button');
+closeButton.addEventListener('click', closeDialog);
