@@ -16,7 +16,7 @@ let cards = [];
 let flippedCards = [];
 let moveCount = 0;
 let checking = false; // Flag to indicate if the cards are being checked
-const players = ['Player One']; // Add as many players as needed
+const players = ['Player One'];
 
 const gameContainer = document.getElementById('game-container');
 const startButton = document.getElementById('start-button');
@@ -29,10 +29,13 @@ const totalPlayers = document.getElementById('num-players');
 const currentPlayerLabel = document.getElementById('current-player-label')
 const scoreboard = document.getElementById('scoreboard')
 const resetButton = document.getElementById('reset-game')
+const closeButton = document.getElementById('close-dialog-button');
 
 resetButton.addEventListener('click', () => resetGame())
-
-// Start the game when the "Start Game" button is clicked
+closeButton.addEventListener('click', () => {
+    winDialog.close()
+    resetGame()
+});
 startButton.addEventListener('click', () => {
     createCards();
     currentPlayerLabel.textContent = players[0]
@@ -52,7 +55,6 @@ startButton.addEventListener('click', () => {
     resetButton.style.display = 'block'
 });
 
-// Shuffle the deck array
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -77,7 +79,6 @@ function createCards() {
     }
 }
 
-// Check if the two flipped cards match based on their values
 function checkMatch() {
     const [card1, card2] = flippedCards;
     
@@ -99,7 +100,7 @@ function checkMatch() {
             card2.classList.remove('flipped');
             card1.textContent = ''; // Hide the value
             card2.textContent = ''; // Hide the value
-        }, 230); // Delay before flipping back
+        }, 230);
     }
 
     flippedCards = [];
@@ -108,9 +109,7 @@ function checkMatch() {
     return matched
 }
 
-// Function to reset the game board
 function resetGame() {
-    // Implement game reset logic here
     moveCount = 0
     moveCounter.textContent = moveCount
     cards = []
@@ -123,14 +122,10 @@ function resetGame() {
     currentPlayerLabel.textContent = ''
     totalPlayers.value = 1
     players.splice(1)
-    // Make the "Start Game" button active again
+
     startButton.style.display = 'block';
     resetButton.style.display = 'none'
 }
-
-// Attach an event listener to the close button
-const closeButton = document.getElementById('close-dialog-button');
-closeButton.addEventListener('click', closeDialog);
 
 function switchToNextPlayer() {
     if (players.length === 1) return
@@ -190,22 +185,15 @@ function displayWinner() {
     for (const [index, value] of allScores.entries()) {
         if (~~value.textContent === maxScore) winners.push(value.id)
     }
-
+    // when mulitple winners display all winners
     if (winners.length > 1) return openDialog(maxScore, moveCount, winners.join(', '))
 
     return openDialog(maxScore, moveCount, winners[0])
 }
 
-// Function to open the modal when the game is won
 function openDialog(matches, turns, winner) {
     matchesCount.textContent = matches;
     turnsCount.textContent = turns;
     winnerName.textContent = winner;
     winDialog.showModal();
-}
-
-// Function to close the modal
-function closeDialog() {
-    winDialog.close();
-    resetGame();
 }
